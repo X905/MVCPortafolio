@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TiendaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="TiendaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Tbl_Producto" EntityType="TiendaModel.Tbl_Producto" />
+    <EntitySet Name="Tbl_Proveedor" EntityType="TiendaModel.Tbl_Proveedor" />
+    <AssociationSet Name="FK_Tbl_Producto_Tbl_Proveedor" Association="TiendaModel.FK_Tbl_Producto_Tbl_Proveedor">
+      <End Role="Tbl_Proveedor" EntitySet="Tbl_Proveedor" />
+      <End Role="Tbl_Producto" EntitySet="Tbl_Producto" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Tbl_Producto">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductoNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductoPrecio" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+    <Property Name="ProductoCantidad" Type="Int32" Nullable="false" />
+    <Property Name="ProductoDescripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IdProveedor" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Tbl_Proveedor" Relationship="TiendaModel.FK_Tbl_Producto_Tbl_Proveedor" FromRole="Tbl_Producto" ToRole="Tbl_Proveedor" />
+  </EntityType>
+  <EntityType Name="Tbl_Proveedor">
+    <Key>
+      <PropertyRef Name="IdProveedor" />
+    </Key>
+    <Property Name="IdProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreProveedor" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tbl_Producto" Relationship="TiendaModel.FK_Tbl_Producto_Tbl_Proveedor" FromRole="Tbl_Proveedor" ToRole="Tbl_Producto" />
+  </EntityType>
+  <Association Name="FK_Tbl_Producto_Tbl_Proveedor">
+    <End Type="TiendaModel.Tbl_Proveedor" Role="Tbl_Proveedor" Multiplicity="1" />
+    <End Type="TiendaModel.Tbl_Producto" Role="Tbl_Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Proveedor">
+        <PropertyRef Name="IdProveedor" />
+      </Principal>
+      <Dependent Role="Tbl_Producto">
+        <PropertyRef Name="IdProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

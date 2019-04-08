@@ -1,0 +1,58 @@
+﻿@model JqueryPortafolio.Models.Tbl_Producto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tbl_Producto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductoNombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductoNombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductoPrecio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductoPrecio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductoCantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductoCantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductoDescripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductoDescripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tbl_Proveedor.NombreProveedor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tbl_Proveedor.NombreProveedor)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdProducto }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

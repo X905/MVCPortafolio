@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TiendaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_Producto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductoNombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ProductoPrecio" Type="numeric" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="ProductoCantidad" Type="int" Nullable="false" />
+          <Property Name="ProductoDescripcion" Type="nvarchar" MaxLength="500" />
+          <Property Name="IdProveedor" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Proveedor">
+          <Key>
+            <PropertyRef Name="IdProveedor" />
+          </Key>
+          <Property Name="IdProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreProveedor" Type="nvarchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Tbl_Producto_Tbl_Proveedor">
+          <End Role="Tbl_Proveedor" Type="Self.Tbl_Proveedor" Multiplicity="1" />
+          <End Role="Tbl_Producto" Type="Self.Tbl_Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Proveedor">
+              <PropertyRef Name="IdProveedor" />
+            </Principal>
+            <Dependent Role="Tbl_Producto">
+              <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TiendaModelStoreContainer">
+          <EntitySet Name="Tbl_Producto" EntityType="Self.Tbl_Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Proveedor" EntityType="Self.Tbl_Proveedor" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tbl_Producto_Tbl_Proveedor" Association="Self.FK_Tbl_Producto_Tbl_Proveedor">
+            <End Role="Tbl_Proveedor" EntitySet="Tbl_Proveedor" />
+            <End Role="Tbl_Producto" EntitySet="Tbl_Producto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TiendaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TiendaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_Producto" EntityType="TiendaModel.Tbl_Producto" />
+          <EntitySet Name="Tbl_Proveedor" EntityType="TiendaModel.Tbl_Proveedor" />
+          <AssociationSet Name="FK_Tbl_Producto_Tbl_Proveedor" Association="TiendaModel.FK_Tbl_Producto_Tbl_Proveedor">
+            <End Role="Tbl_Proveedor" EntitySet="Tbl_Proveedor" />
+            <End Role="Tbl_Producto" EntitySet="Tbl_Producto" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Tbl_Producto">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductoNombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ProductoPrecio" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="ProductoCantidad" Type="Int32" Nullable="false" />
+          <Property Name="ProductoDescripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IdProveedor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_Proveedor" Relationship="TiendaModel.FK_Tbl_Producto_Tbl_Proveedor" FromRole="Tbl_Producto" ToRole="Tbl_Proveedor" />
+        </EntityType>
+        <EntityType Name="Tbl_Proveedor">
+          <Key>
+            <PropertyRef Name="IdProveedor" />
+          </Key>
+          <Property Name="IdProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreProveedor" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Tbl_Producto" Relationship="TiendaModel.FK_Tbl_Producto_Tbl_Proveedor" FromRole="Tbl_Proveedor" ToRole="Tbl_Producto" />
+        </EntityType>
+        <Association Name="FK_Tbl_Producto_Tbl_Proveedor">
+          <End Type="TiendaModel.Tbl_Proveedor" Role="Tbl_Proveedor" Multiplicity="1" />
+          <End Type="TiendaModel.Tbl_Producto" Role="Tbl_Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Proveedor">
+              <PropertyRef Name="IdProveedor" />
+            </Principal>
+            <Dependent Role="Tbl_Producto">
+              <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TiendaModelStoreContainer" CdmEntityContainer="TiendaEntities">
+          <EntitySetMapping Name="Tbl_Producto">
+            <EntityTypeMapping TypeName="TiendaModel.Tbl_Producto">
+              <MappingFragment StoreEntitySet="Tbl_Producto">
+                <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+                <ScalarProperty Name="ProductoDescripcion" ColumnName="ProductoDescripcion" />
+                <ScalarProperty Name="ProductoCantidad" ColumnName="ProductoCantidad" />
+                <ScalarProperty Name="ProductoPrecio" ColumnName="ProductoPrecio" />
+                <ScalarProperty Name="ProductoNombre" ColumnName="ProductoNombre" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Proveedor">
+            <EntityTypeMapping TypeName="TiendaModel.Tbl_Proveedor">
+              <MappingFragment StoreEntitySet="Tbl_Proveedor">
+                <ScalarProperty Name="NombreProveedor" ColumnName="NombreProveedor" />
+                <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

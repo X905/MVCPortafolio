@@ -1,0 +1,97 @@
+﻿@model IEnumerable<JqueryPortafolio.Models.Tbl_Producto>
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table table-bordered">
+    <caption>Listado Productos</caption>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Tbl_Proveedor.NombreProveedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductoNombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductoDescripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductoPrecio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductoCantidad)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tbl_Proveedor.NombreProveedor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductoNombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductoDescripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductoPrecio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductoCantidad)
+                </td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#@item.ProductoNombre">
+                        Editar
+                    </button>
+                    @ModalDetalles(Model)
+                    @Html.ActionLink("Venta", "Venta", new { id = item.IdProducto }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.IdProducto }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.IdProducto }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IdProducto })
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+
+
+@helper ModalDetalles(IEnumerable<JqueryPortafolio.Models.Tbl_Producto> tbl_Producto)
+{
+    foreach (var item in Model)
+    {
+        <div class="modal" id="@item.ProductoNombre" tabindex="-1" role="dialog" aria-labelledby="@item.ProductoNombre" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Editar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="@Url.Action("Edit","Productos")">
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

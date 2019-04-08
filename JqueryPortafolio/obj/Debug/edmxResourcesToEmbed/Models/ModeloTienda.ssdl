@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TiendaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Tbl_Producto">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductoNombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ProductoPrecio" Type="numeric" Precision="9" Scale="2" Nullable="false" />
+    <Property Name="ProductoCantidad" Type="int" Nullable="false" />
+    <Property Name="ProductoDescripcion" Type="nvarchar" MaxLength="500" />
+    <Property Name="IdProveedor" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tbl_Proveedor">
+    <Key>
+      <PropertyRef Name="IdProveedor" />
+    </Key>
+    <Property Name="IdProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreProveedor" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Tbl_Producto_Tbl_Proveedor">
+    <End Role="Tbl_Proveedor" Type="Self.Tbl_Proveedor" Multiplicity="1" />
+    <End Role="Tbl_Producto" Type="Self.Tbl_Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Proveedor">
+        <PropertyRef Name="IdProveedor" />
+      </Principal>
+      <Dependent Role="Tbl_Producto">
+        <PropertyRef Name="IdProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TiendaModelStoreContainer">
+    <EntitySet Name="Tbl_Producto" EntityType="Self.Tbl_Producto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tbl_Proveedor" EntityType="Self.Tbl_Proveedor" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Tbl_Producto_Tbl_Proveedor" Association="Self.FK_Tbl_Producto_Tbl_Proveedor">
+      <End Role="Tbl_Proveedor" EntitySet="Tbl_Proveedor" />
+      <End Role="Tbl_Producto" EntitySet="Tbl_Producto" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
